@@ -16,7 +16,7 @@ func main() {
 		log.Fatal("Database connection is not initialized")
 	}
 
-	if err := initializers.DB.AutoMigrate(&models.Post{}); err != nil {
+	if err := initializers.DB.AutoMigrate(&models.Post{}, &models.Comment{}); err != nil {
 		log.Fatal("Migration failed:", err)
 	}
 

@@ -17,5 +17,6 @@ func ConnectToMysql() {
 	if err != nil {
 		log.Fatalf("Failed to connect to mysql: %v", err)
 	}
+
 	log.Println("Database initialized", DB)
 }

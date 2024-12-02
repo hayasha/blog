@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+    </head>
+    <body>
+        {{ if eq (len .) 0 }}
+            Nothing to see here.
+        {{ end }}
+
+        {{ range . }}
+            <div>
+                <a href="/posts/{{ .ID }}">{{ .Title }}</a>
+            </div>
+        {{ end }}
+    </body>
+</html>

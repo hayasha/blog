@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/hayasha/blog/initializers"
 	"github.com/hayasha/blog/models"
+	"html/template"
 )
 
 func PostCreate(c *gin.Context) {
@@ -26,10 +28,13 @@ func PostCreate(c *gin.Context) {
 func PostsIndex(c *gin.Context) {
 	var posts []models.Post
 	initializers.DB.Find(&posts)
-	c.JSON(200, gin.H{
-		"data":    posts,
-		"message": "OK",
-	})
+
+	t, _ := template.ParseFiles("templates/index.html")
+	err := t.Execute(c.Writer, posts)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
 }
 
 func PostDetail(c *gin.Context) {
@@ -38,10 +43,12 @@ func PostDetail(c *gin.Context) {
 	var post models.Post
 	initializers.DB.First(&post, id)
 
-	c.JSON(200, gin.H{
-		"data":    post,
-		"message": "OK",
-	})
+	t, _ := template.ParseFiles("templates/post.html")
+	err := t.Execute(c.Writer, post)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
 }
 
 func PostUpdate(c *gin.Context) {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/hayasha/blog/controllers"
 	"net/http"
 
@@ -23,7 +24,8 @@ func main() {
 
 	r.POST("/posts", controllers.PostCreate)
 
-	r.GET("/posts", controllers.PostsIndex)
+	r.GET("/posts/index", controllers.PostsIndex)
+
 	r.GET("/posts/:id", controllers.PostDetail)
 
 	r.PUT("/posts/:id", controllers.PostUpdate)
@@ -31,4 +33,11 @@ func main() {
 	r.DELETE("/posts/:id", controllers.PostDelete)
 
 	r.Run()
+}
+
+func catch(err error) {
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
 }
